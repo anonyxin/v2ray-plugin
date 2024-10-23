@@ -33,6 +33,7 @@ import (
 	"github.com/v2fly/v2ray-core/v5/transport/internet/quic"
 	"github.com/v2fly/v2ray-core/v5/transport/internet/tls"
 	"github.com/v2fly/v2ray-core/v5/transport/internet/websocket"
+	"github.com/v2fly/v2ray-core/v5/transport/internet/httpupgrade"
 )
 
 var (
@@ -140,6 +141,10 @@ func generateConfig() (*core.Config, error) {
 			Security: &protocol.SecurityConfig{Type: protocol.SecurityType_NONE},
 		}
 		*tlsEnabled = true
+	case "httpupgrade":
+                transportSettings = &httpupgrade.Config{
+                        Path: *path,
+                }
 	default:
 		return nil, newError("unsupported mode:", *mode)
 	}
